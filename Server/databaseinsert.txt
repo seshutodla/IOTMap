@@ -1,3 +1,10 @@
+CREATE DATABASE DeviceInfo;
+
+CREATE TABLE devices(
+DeviceID VARCHAR(100) PRIMARY KEY,
+DeviceName VARCHAR(100)
+);
+
 INSERT INTO devices
 VALUES ('24-5D-56-C1-38-B0', 'Temperature Device'),
 ('98-4D-6C-58-6A-CC', 'Light Device'),
