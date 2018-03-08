@@ -21,7 +21,7 @@ wifi.getCurrentConnections(function(err, currentConnections) {
     }
 	console.log("List of current connections: ")
     console.log(currentConnections);
-    var id = '34:8f:27:03:7f:7c';
+    var id = 'b2:b0:ed:bc:05:80';
 	connection.query('select * from devices where DeviceID like ?',id, function(err, result){
 	console.log(result);
 	if(result){
@@ -30,8 +30,8 @@ wifi.getCurrentConnections(function(err, currentConnections) {
 		console.log("This is not an IOT device");
 		}
 	});
-	connection.query('select * from devices', function(err, result){
+	/*connection.query('select * from devices', function(err, result){
 		console.log(result);
-	})
+	})*/
+	connection.end();
 });
- 
