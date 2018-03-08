@@ -1,5 +1,0 @@
-INSERT INTO devices
-VALUES ('24-5D-56-C1-38-B0', 'Temperature Device'),
-('98-4D-6C-58-6A-CC', 'Light Device'),
-('85-24-81-87-61-3E', 'Mobile Device Test'),
-('7D-1F-1B-70-ED-AD', 'IOT Test Device');
