@@ -1,5 +1,6 @@
 var wifi = require('node-wifi');
 var mysql = require('mysql');
+var fs = require('fs');
 
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -21,7 +22,7 @@ wifi.getCurrentConnections(function(err, currentConnections) {
     }
 	console.log("List of current connections: ")
     console.log(currentConnections);
-    var id = 'b2:b0:ed:bc:05:80';
+    var id = '24-5D-56-C1-38-B0';
 	connection.query('select * from devices where DeviceID like ?',id, function(err, result){
 	console.log(result);
 	if(result){
@@ -30,8 +31,11 @@ wifi.getCurrentConnections(function(err, currentConnections) {
 		console.log("This is not an IOT device");
 		}
 	});
-	/*connection.query('select * from devices', function(err, result){
+	connection.query('select * from devices', function(err, result){
 		console.log(result);
-	})*/
-	connection.end();
+	})	
+});
+
+fs.readFile('C:/Users/Seshuprasad Todla/Desktop/TempReadings.txt', 'utf8', function(error, data) {
+console.log(data);
 });
