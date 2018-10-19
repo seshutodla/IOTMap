@@ -1,0 +1,37 @@
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.6/svg.js">
+
+</script>
+
+<div id="create">
+<script>
+
+	var i=1;
+	function shapeGen(){
+		if(i==1){
+			var draw = SVG("create").size(1000,1000);
+			var temps1 = draw.rect(70,50)
+			temps1.attr({fill : 'white', stroke: 'black', 'stroke-width': 2})
+			temps1.attr({ x: 130, y: 75})
+			var tempx = temps1.x()
+			var tempy = temps1.y()
+
+
+
+			var led = draw.rect(200,100)
+			led.attr({fill: 'black', stroke: 'black', 'stroke-width': 2})
+			led.attr({ x: tempx+500, y:tempy-25})
+
+			var conn = draw.line(200,100,700,100).stroke({ width: 1})
+			var packet = draw.circle(10)
+			packet.attr({fill: 'red'})
+			packet.attr({cx: 200, cy:100})
+		
+			packet.animate().move(tempx+500,tempy+25).loop()
+			
+		}
+	}
+	shapeGen();
+</script>
+</div>
+</html>
