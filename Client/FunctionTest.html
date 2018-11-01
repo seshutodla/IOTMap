@@ -11,24 +11,37 @@
 		if(i==1){
 			var draw = SVG("create").size(1000,1000);
 			var temps1 = draw.rect(70,50)
-			temps1.attr({fill : 'white', stroke: 'black', 'stroke-width': 2})
+			temps1.attr({fill : 'white', 'fill-opacity': 0, stroke: 'black', 'stroke-width': 2})
 			temps1.attr({ x: 130, y: 75})
+			var bmeimage = draw.image('iotbme.jpg',70,50)
+			bmeimage.attr({x: 130, y: 75})
 			var tempx = temps1.x()
 			var tempy = temps1.y()
+			bmeimage.click(function(){
+				alert('Device ID: 24-5D-56-C1-38-B0\nDevice Name: Temperature Device')
+			})
 
 
 
 			var led = draw.rect(200,100)
-			led.attr({fill: 'black', stroke: 'black', 'stroke-width': 2})
+			led.attr({fill: 'black', 'fill-opacity': 0, stroke: 'black', 'stroke-width': 2})
 			led.attr({ x: tempx+500, y:tempy-25})
+			var compimage = draw.image('computer.png',200,100)
+			compimage.attr({x: tempx+500, y:tempy-25})
+			compimage.click(function(){
+				alert('Device ID: 9C:B6:D0:03:DB:A1\nDevice Name: CentralComputer')
+			})
 
-			var conn = draw.line(200,100,700,100).stroke({ width: 1})
+			var conn = draw.line(200,100,tempx+500,100).stroke({ width: 1})
 			var packet = draw.circle(10)
 			packet.attr({fill: 'red'})
 			packet.attr({cx: 200, cy:100})
 		
-			packet.animate().move(tempx+500,tempy+25).loop()
-			
+			packet.animate(4000).move(tempx+500,tempy+25).loop()
+			packet.mouseover(function(){
+				var d = new Date();
+				alert('Packet Information\nSender: Temperature Device\nReceiver: CentralComputer\nData: 24.063 deg C\nMessageTime : '+d)
+			})
 		}
 	}
 	shapeGen();
