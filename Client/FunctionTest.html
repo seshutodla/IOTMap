@@ -13,7 +13,7 @@
 			var temps1 = draw.rect(70,50)
 			temps1.attr({fill : 'white', 'fill-opacity': 0, stroke: 'black', 'stroke-width': 2})
 			temps1.attr({ x: 130, y: 75})
-			var bmeimage = draw.image('iotbme.jpg',70,50)
+			var bmeimage = draw.image('https://www.modmypi.com/image/cache/catalog/rpi-products/breakout-boards/adafruit/2652/DSC_0644-1024x780.jpg',70,50)
 			bmeimage.attr({x: 130, y: 75})
 			var tempx = temps1.x()
 			var tempy = temps1.y()
@@ -26,7 +26,7 @@
 			var led = draw.rect(200,100)
 			led.attr({fill: 'black', 'fill-opacity': 0, stroke: 'black', 'stroke-width': 2})
 			led.attr({ x: tempx+500, y:tempy-25})
-			var compimage = draw.image('computer.png',200,100)
+			var compimage = draw.image('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Gnome-computer.svg/2000px-Gnome-computer.svg.png',200,100)
 			compimage.attr({x: tempx+500, y:tempy-25})
 			compimage.click(function(){
 				alert('Device ID: 9C:B6:D0:03:DB:A1\nDevice Name: CentralComputer')
