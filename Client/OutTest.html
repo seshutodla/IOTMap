@@ -50,12 +50,12 @@
 			var temps2 = draw.rect(70,50)
 			temps2.attr({fill: 'white','fill-opacity': 0, stroke: 'black', 'stroke-width': 2})
 			temps2.attr({ x: 695, y: 650})
-			var phoneimage = draw.image('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAclBMVEX///8AAADb29v7+/t6enro6Ojy8vL4+PgKCgrv7+/r6+tISEjl5eX19fWgoKCVlZVoaGiysrLW1taoqKjIyMg8PDwtLS2AgIA2NjaOjo4XFxdeXl51dXW7u7uioqIiIiKRkZFUVFSGhoYoKCjMzMxtbW2imgDeAAADC0lEQVR4nO3aCW7iQBBGYTeExUDYSchKkknuf8VRgjQTjCXapv5qq/XeAcr9CdobFEX7+tvF8jAO2saH5WJ7xSKvaHgvtv3u49YfOHf0fTd39pU7Z2AI06EncObu+27gB5wkAYbg9yneJRLuvICeJ9HT3nyAaTbhMZ+t+JRQ+OUBjDzNzIp+k2K/GR5X/rhL/abx3E3U3JVAVO09aiXNN8wgau5SIKoWtZAwajx3FDX3USCqVMYJm++XOGEQkCr14hYyazw48lQzEZhOixQuGg9exA3uCUynRQrDdjJo0mQbObc7QlUIESJEiBAhQnfhjU8JhfKjHUso7MsP9xNC2xAqQmgbQkUIbUOoCKFtCBUhtA2hIoS2IVSE0DaEihDahlARQtsQKkJoG0JFCG1DqAihbQgVIbQNoSKEtiFUhNA2hIoQ2oZQEULbECpCaBtCRQhtQ6gIoW0IFSG0DaEihLYhVITQNoSKENqGUBFC2xAqQmgbQkUIbUOoCKFtCBUhtA2hIoS2IVSE0DaEihDahlARQtsQKkJoG0JFCG1DqAihbQgVIbQNoSKEtiFUhNA2hIoQ2oZQEULbECpCaBtCRQhtQ6gIoW0IFSG0DaEihLYhVITQNoSKENp2IpQf7VhCYYIQIkSIECFChAgRIkSI8Ltx1sLpajIqRpPVNFPh7v/ierschc8nY77yEz5X5rQldla4Pxv0JzPh+mzQNi/htGbSPivhqmbSPCth3bo+sxLWvRwfZi/sZyUc1kwqsxJ+1kzKax++1Ux6yEr4WDOp3XNUV4U1F8RNu0GdFYbbypx214ouCyu33v277IRhX/6aUrYFdlkYwuu/Ie1uSbsvDOHmZd1bvzxfM0IvnF2zPINmcuEosXAkFxaXFyFNDyyekgKfHIQt70WM2jgI2z30WFX3GGZeyq/p0gOY9HoxcBEWH8mADz7Aomh9U3ll5y/OVaU62bicZo6l2YpOm/BY2f4HwLZNHT/BnxbOwNfLS7KuvHf0fVRfgji1XiwP1/7z4FLjw3J+/tNcg/4CZddCxonu8YQAAAAASUVORK5CYII=',70,50)
+			var phoneimage = draw.image('https://cdn-shop.adafruit.com/1200x900/3527-02.jpg',70,50)
 			phoneimage.attr({ x: 695, y: 650})
 			var senx = temps2.x()
 			var seny = temps2.y()
 			phoneimage.click(function(){
-				alert('Device ID: 85-24-81-87-61-3E\nDevice Name: Mobile Device Test')
+				alert('Device ID: 85-24-81-87-61-3E\nDevice Name: LED')
 			})
 			
 			var conn2 = draw.line(730,150,730,650).stroke({ width: 1})
@@ -65,7 +65,7 @@
 			packet2.animate(5000).move(730,150).loop()
 			packet2.mouseover(function(){
 				var dt = new Date();
-				alert('Packet Information\nSender: Mobile Device Test\nReceiver: CentralComputer\nData: Connected\nMessageTime: '+dt)
+				alert('Packet Information\nSender: LED\nReceiver: CentralComputer\nData: System Info\nMessageTime: '+dt)
 			})
 
 
