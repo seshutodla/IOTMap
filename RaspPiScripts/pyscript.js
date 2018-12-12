@@ -30,7 +30,7 @@ client.connect(PORT, HOST, function() {
         if (err) {
             console.log('Error');
             }
-    
+    });
 });
 
 
