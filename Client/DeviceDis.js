@@ -28,7 +28,7 @@ wifi.getCurrentConnections(function(err, currentConnections) {
     http.createServer(outLay).listen(8000);
     //--Checking each device
     currentConnections.forEach(function(currentConnections.mac()){
-    	var id1 = currentConncetions.mac();
+    	var id1 = currentConnections.mac();
     	connection.query('select * from devices where DeviceID like ?', id1, function(err, result){
 			console.log(result);
 			if(result){
