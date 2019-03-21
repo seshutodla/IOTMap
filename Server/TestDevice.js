@@ -1,11 +1,18 @@
-var netList = require('network-list');
-var mysql = require('mysql');
-var fs = require('fs');
-var http = require('http');
+var express = require('express')
+var socket = require('socket.io')
+
 var PORT = 3000;
 var HOST = '172.20.10.2';
 var dgram = require('dgram');
-var server = dgram.createSocket('udp4');
+var dserver = dgram.createSocket('udp4');
+
+var netList = require('network-list');
+var mysql = require('mysql');
+
+var app = express();
+var server = app.listen(4000,function(){
+	console.log('listening')
+});
 
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -36,33 +43,24 @@ netList.scanEach({}, (err, obj) => {
 	}
 });
 
-server.on('listening', function () {
-	var address = server.address();
+app.use(express.static('public'));
+
+var io = socket(server);
+dserver.on('listening', function () {
+	var address = dserver.address();
 	console.log('Listening on ' + address.address + ':' + address.port);
 });
 
-server.on('message', function(message, remote) {
-	var reading = message.toString('utf8');
-	console.log(message.toString('utf8'));
-	fs.writeFile("./tempreading.txt", reading , function(err){
-		if(err){
-			return console.log(err);
-		}
-	//console.log("saved")
-	})
-});
-server.bind(PORT, HOST);
 
-http.createServer(outLay).listen(8000);
-function outLay(request, response){
-	response.writeHead(200, {'Content-Type': 'text/html'});
-	fs.readFile('./layoutTest.html', null, function(error, data){
-		if(error){
-			response.writeHead(404);
-			response.write('File not found!');
-		} else {
-			response.write(data);
-		}
-		response.end();
+io.on('connection', function(socket){
+	dserver.on('message', function(message, remote) {
+		var reading = message.toString('utf8');
+		console.log(message.toString('utf8'));
+		//console.log('made socket')
+		socket.emit('tempread', {rd: reading})
+
 	});
-}
+});		
+	//console.log("saved")
+
+dserver.bind(PORT, HOST);
