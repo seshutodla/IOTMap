@@ -1,61 +1,51 @@
-var result;
 var socket = io.connect('http://localhost:4000')
+var draw = SVG("create").size(1000,1000);
+var nested1 = draw.nested();
+var nested2 = draw.nested();
+var nested3 = draw.nested();
+var central = draw.rect(200,100);
+var image = draw.image();
+central.attr({fill: 'black', 'fill-opacity': 0, stroke: 'black', 'stroke-width': 2})
+central.attr({ x: 630, y: 50})
+var centx = central.x()
+var centy = central.y()
+var compimage = draw.image('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Gnome-computer.svg/2000px-Gnome-computer.svg.png', 200,100)
+compimage.attr({x: centx, y: centy})
+compimage.click(function(){
+	alert('Device ID: 48:d2:24:d1:ff:a2\nDevice Name: CentralComputer')
+})
 
-
-socket.on('tempread', function(data){
-	console.log(data.rd);
-	var conn1 = draw.line(200,100,tempx+500,100).stroke({ width: 1})
-	conn1.delay(40000).animate().stroke({width: 0})
-	packet1.animate(5000).move(tempx+565,tempy+575)
-		packet1.mouseover(function(){
-		var d = new Date();
-		alert('Packet Information\nSender: Temperature Device\nReceiver: CentralComputer\nData: '+data.rd+' deg C\nMessageTime: '+d)
+socket.on('devicedisplay', function(data){
+	console.log(data.address)
+	console.log(data.dstat)
+	console.log(data.mac)
+	console.log(data.name)
+	console.log(data.dtype)
+	if(data.dstat == 'true'){
+		var temps1 = nested1.rect(70,50)
+		temps1.attr({fill: 'white', 'fill-opacity': 0, stroke:'black', 'stroke-width': 2})
+		if (data.dtype == 'Sensor'){
+			image = nested1.image('https://www.modmypi.com/image/cache/catalog/rpi-products/breakout-boards/adafruit/2652/DSC_0644-1024x780.jpg', 70, 50)		
+		}
+		if (data.dtype == 'Display'){
+			image = nested2.image('https://cdn-shop.adafruit.com/1200x900/3527-02.jpg', 70,50)	
+		}
+		image.click(function(){
+			alert('Device ID: '+data.mac+'\nDevice Name: '+data.name)
 		})
-	packet1.attr({cx: 200, cy:100})
+	}
+	else{
+		nested1.clear()
+	}
+})
+
+socket.on('packetSend', function(data){
+	var conn = nested2.line().stroke({width: 1})
+	var packet = nested3.circle(10)
+	packet.attr({fill: 'red'})
+	packet.animate(5000).move(data.xcor, data.ycor)
+	packet.mouseover(function(){
+		var d = new Date();
+		alert('Packet Information\nSender: '+data.sender+'\nReceived: '+data.receiver+'\nData: '+data.rd+'\nMessage Time: '+d)
 	})
-
-		var d = new Date();
-		var draw = SVG("create").size(1000,1000);
-		var temps1 = draw.rect(70,50)
-		var bmeimage = draw.image('https://www.modmypi.com/image/cache/catalog/rpi-products/breakout-boards/adafruit/2652/DSC_0644-1024x780.jpg',70,50)
-		bmeimage.attr({x: 130, y: 75})
-		temps1.attr({fill : 'white', 'fill-opacity': 0, stroke: 'black', 'stroke-width': 2})
-		temps1.attr({ x: 130, y: 75})
-		var tempx = temps1.x()
-		var tempy = temps1.y()
-		bmeimage.click(function(){
-
-		alert('Device ID: b8:27:eb:64:84:3c\nDevice Name: Temperature Device')
-		})
-
-
-
-		var led = draw.rect(200,100)
-		led.attr({fill: 'black','fill-opacity': 0, stroke: 'black', 'stroke-width': 2})
-		led.attr({ x: tempx+500, y:tempy-25})
-		var ledx = led.x()
-		var ledy = led.y()
-		var compimage = draw.image('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Gnome-computer.svg/2000px-Gnome-computer.svg.png',200,100)
-		compimage.attr({x: tempx+500, y:tempy-25})
-		compimage.click(function(){
-		alert('Device ID: 9c:b6:d0:03:db:a1\nDevice Name: CentralComputer')
-		})
-
-		//var conn1 = draw.line(200,100,tempx+500,100).stroke({ width: 1})
-		var packet1 = draw.circle(10)
-		packet1.attr({fill: 'red'})
-		packet1.attr({cx: 200, cy:100})
-			
-
-		var temps2 = draw.rect(70,50)
-		temps2.attr({fill: 'white','fill-opacity': 0, stroke: 'black', 'stroke-width': 2})
-		temps2.attr({ x: 695, y: 650})
-		var phoneimage = draw.image('https://cdn-shop.adafruit.com/1200x900/3527-02.jpg',70,50)
-		phoneimage.attr({ x: 695, y: 650})
-		var senx = temps2.x()
-		var seny = temps2.y()
-		phoneimage.click(function(){
-		alert('Device ID: 85-24-81-87-61-3E\nDevice Name: LED')
-		})
-			
-		var conn2 = draw.line(730,150,730,650).stroke({ width: 1})
+})
