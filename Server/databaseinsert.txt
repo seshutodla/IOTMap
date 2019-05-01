@@ -1,12 +1,12 @@
 CREATE DATABASE DeviceInfo;
-
+# Schema
 CREATE TABLE devices(
 DeviceID VARCHAR(100) PRIMARY KEY,
 DeviceName VARCHAR(100)
 DeviceType VARCHAR(100)
 );
 
-
+# Example
 INSERT INTO devices
 VALUES ('24-5D-56-C1-38-B0', 'Temperature Device', 'Sensor'),
 ('98-4D-6C-58-6A-CC', 'Light Device', 'Display'),
