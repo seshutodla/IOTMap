@@ -8,6 +8,9 @@ var dgram = require('dgram');
 var dserver = dgram.createSocket('udp4');
 
 var connection = mysql.createConnection({
+/*
+    Database information can be specified below
+*/
     host: 'localhost',
     user: 'root',
     password: 'seshu149',
