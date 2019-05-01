@@ -28,39 +28,41 @@ dserver.on('listening', function(){
 })
 var io = socket(server);
 setInterval(function(){
-    netList.scanEach({}, (err, obj) => {
-        if(obj.ip == '172.20.10.6' || obj.ip == '172.20.10.7')
-        {
-            
-                connection.query('select * from devices where DeviceID like ?', obj.mac, function(err,results,fields){
-                    console.log(results)
-                        io.on('connection', function(socket){
-                            var address = obj.ip;
-                            var dstat = obj.alive.toString('utf8');
-                            var mac = obj.mac;
-                            connection.query('select DeviceName from devices where DeviceID like ?', obj.mac, function(err,results){
-                            	var name = results;
-                            })
-                            connection.query('select DeviceType from devices where DeviceID like ?', obj.mac, function(err,results){
-                            	var dtype = results;
-                            })
-                            var dtype = results.DeviceType;
-                            socket.emit('devicedisplay', {address, dstat, mac, name, dtype})
-                            dserver.on('message', function(message, remote){
-                                var reading = message.toString('utf8');
-                                var receiver = dserver.address();
-                                var sender = remote.address();
-                                console.log(reading);
-                                socket.emit('tempread', {rd: reading, sender, receiver})
-                            })
-                        })
-                        console.log('Is IOT');
-                        console.log(obj);
-                        console.log('----')
-                    
-
-                })
-        }
-    });
+	netList.scanEach({}, (err, obj) => {
+		connection.query('select * from devices where DeviceID like ?', obj.mac, function(err, results, fields){
+			if(results === undefined){
+				console.log(results)
+				console.log(obj)
+				console.log('Not IOT')
+			}
+			else {
+				if(results.length > 0){
+					console.log(results)
+					console.log(obj)
+					console.log('Is IOT')
+					console.log('----')
+					var address = obj.ip;
+					var dstat = obj.alive.toString('utf8');
+					var dtype = results[0].DeviceType;
+					var dname = results[0].DeviceName;
+					var dmac = obj.mac;
+					io.on('connection', function(socket){
+						socket.emit('devicedisplay', {address, dstat, dtype, dname, dmac})
+						dserver.on('message', function(message, remote)
+						{
+                            var reading = message.toString('utf8');
+                            var receiver = dserver.address();
+                            var sender = remote.address();
+                            console.log(reading);
+                            socket.emit('tempread', {rd: reading, sender, receiver})
+                        })					
+					})
+				}
+				else{
+					console.log(obj)
+				}
+			}
+		})
+	})
 }, 10000);
 dserver.bind(PORT, HOST);
