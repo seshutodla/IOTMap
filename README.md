@@ -1,9 +1,13 @@
 # IOTMap
-This is a temporary readme file. 
+Program to monitor and display IOT devices in a network.
 
-Client Directory --> DeviceDis.js (takes care of the scanning and verification of devices) and DisplayMap.html (displays the decices in the network)
+Download and extract the package. 
 
-Server Directory --> only the databaseinsert.txt is of any importance, the rest are sandbox testing files. 
 
-RaspPiScripts --> pyscript.js sends the packets of data from the iot device to the computer.
+```
+cd IOTMap
+npm install
+node TestDevice.js
+```
 
+Database details such as hostname can be changed in TestDevice.js
