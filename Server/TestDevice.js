@@ -50,12 +50,12 @@ setInterval(function(){
 						socket.emit('devicedisplay', {address, dstat, dtype, dname, dmac})
 						dserver.on('message', function(message, remote)
 						{
-                            var reading = message.toString('utf8');
-                            var receiver = dserver.address();
-                            var sender = remote.address();
-                            console.log(reading);
-                            socket.emit('tempread', {rd: reading, sender, receiver})
-                        })					
+                           				var reading = message.toString('utf8');
+                            				var receiver = dserver.address();
+                            				var sender = remote.address();
+                            				console.log(reading);
+                            				socket.emit('tempread', {rd: reading, sender, receiver})
+                        			})					
 					})
 				}
 				else{
